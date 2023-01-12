@@ -1,26 +1,27 @@
-let boxe = document.getElementById("box"); //selection de la div à deplacer
-boxe.setAttribute("draggable", true); // attribut à activer afin que l'objet soit deplaçable
+/*
+Copy the code above, to a structured HTML file.
+In your Javascript file add the functionality which will allow you to drag the box and drop it into the target.
+ Check out the Course Notes named DOM animations.
+*/
 
-let zone = document.getElementById("target"); //selection de la zone de depot
 
-// les differents evenements pour le deplacement et le depot de l'objet
-
-boxe.addEventListener("dragstart", dragStart); // cet evenement permet de definr l'instant où le deplacement à debuter
-
-zone.addEventListener("dragover", allowDrop); // cet evenement indique l'instant où l'objet sur vol la zone de depot
-zone.addEventListener("drop", dragDrop); // cet evenement indique l'instant où l'objet est deposé
-
-function allowDrop(event) {
-  event.preventDefault();
+// This is the function which will be used to drag the element;
+function drag(e){
+    e.dataTransfer.setData("text",e.target.id)
+    
 }
 
-function dragStart(event) {
-  event.dataTransfer.setData("text", event.target.id);
+// This is the function which will be used to drop the element;
+function drop(e){
+    e.preventDefault();
+    let element=e.dataTransfer.getData("text");
+    e.target.appendChild(document.getElementById(element))
+    document.getElementById(element).style.marginLeft="75px";
+    document.getElementById(element).style.marginTop="75px";
+    
 }
 
-function dragDrop(event) {
-  event.preventDefault();
-  let data = event.dataTransfer.getData("text");
-  let box = document.getElementById(data);
-  event.target.appendChild(box);
+// function which will allow the dropping of the element 
+function dropField(e){
+    e.preventDefault();
 }
